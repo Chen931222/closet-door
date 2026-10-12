@@ -2,7 +2,7 @@
 
 An on-device camera for the closet door. Hang a garment on the door; the device cuts it out, names the type and main colour, checks whether you already own something like it, and suggests outfits for today's temperature. Photos never leave the device.
 
-Entry for the ASUS UGen AI League (Everyday AI, Battlefield Lightning / UGen300). This repository is the Stage I prototype: it runs on a laptop CPU through ONNX Runtime, as a stand-in for the Hailo-10H.
+Entry for the ASUS UGen AI League (Everyday AI, Battlefield Lightning / UGen300). This repository is the Stage I prototype: it runs on a desktop CPU through ONNX Runtime, as a stand-in for the Hailo-10H.
 
 ## Why a device and not an app
 

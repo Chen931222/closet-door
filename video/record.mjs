@@ -121,7 +121,7 @@ await cap(page, '...come out "olive". A phone sees different light every time; a
 await sleep(6600);
 
 await pointAt(page, '#times');
-await cap(page, 'Time per stage on a laptop CPU, int8: about 0.16 s per garment on 4 threads. The cutout is the slow part, so it moves to the Hailo-10H first.');
+await cap(page, 'Time per stage on a desktop CPU, int8: about 0.16 s per garment on 4 threads. The cutout is the slow part, so it moves to the Hailo-10H first.');
 await sleep(6400);
 await cap(page, '');
 await sleep(800);
