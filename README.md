@@ -26,7 +26,7 @@ Text embeddings for the 20 garment prompts are computed once and cached, so the 
 
 ### Accuracy: garment slot, 103 of my own items
 
-Labels are my own, from an earlier personal tool. Images are already cut out, so this measures the type stage alone.
+Labels are my own, from my earlier web closet (wardrobe-gallery). Images are already cut out, so this measures the type stage alone.
 
 | CLIP | 5-way part | 4-way slot (upper / bottom / shoes / bag) |
 |---|---|---|
@@ -79,4 +79,4 @@ My clothes photos and closet index are not in this repository.
 
 - Written with Claude Code (Anthropic) as a coding assistant; design decisions, data and measurements are mine and are reproducible with the scripts above.
 - Models: U2Net-p (Apache-2.0, via rembg), OpenAI CLIP ViT-B/32 (MIT) in the ONNX export by Xenova.
-- I previously built a personal web closet for my own items; this project is new code with a different job (an on-device camera), and uses that tool's labels only as ground truth for the accuracy check.
+- I also run wardrobe-gallery (wardrobe-gallery.vercel.app), a public web closet built on an MIT open-source project. There I photograph and label each garment by hand, and it suggests outfits by weather. Closet Door is new code for a different job: a fixed door camera that recognises type and colour on its own and runs on an edge accelerator. It reuses my clothes photos and their labels, the labels only as ground truth for the accuracy check. The outfit and "already own it" ideas exist in both; the automatic recognition and the on-device pipeline are new here.

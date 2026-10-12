@@ -136,7 +136,7 @@
     <div style="font-size:19px">
       <p><b>Slot</b> (upper / bottom / shoes / bag) is what an outfit needs.</p>
       <p class="mute">Most 5-way misses are hoodies and sweatshirts I called "top" and the model calls "outer" — a labelling boundary more than an error.</p>
-      <p class="mute">Labels are my own, from an earlier personal tool; images already cut out, so this tests the type stage alone. int8 costs ~2 points; the Hailo port must report the same number.</p>
+      <p class="mute">Labels are my own, from my earlier web closet (wardrobe-gallery); images already cut out, so this tests the type stage alone. int8 costs ~2 points; the Hailo port must report the same number.</p>
     </div>
   </div>
   <p class="foot mono">eval_parts.py → results/eval_parts.json</p>
@@ -243,7 +243,7 @@
   <h2 style="font-size:28px; margin-top:30px">Disclosure</h2>
   <ul style="font-size:18px" class="mute">
     <li>Code written with Claude Code (Anthropic) as an assistant. Data, measurements and decisions are mine and reproducible from the repository.</li>
-    <li>I earlier built a personal web closet for my own items. This entry is new code with a different job — a door camera — and uses that tool's labels only as ground truth.</li>
+    <li>I also run wardrobe-gallery (wardrobe-gallery.vercel.app), a public web closet built on an MIT open-source project. There I photograph and label each garment by hand, and it suggests outfits by weather. Closet Door is new code for a different job: a fixed door camera that recognises type and colour on its own and runs on an edge accelerator. It reuses my clothes photos and their labels, the labels only as ground truth for the accuracy check. The outfit and &quot;already own it&quot; ideas exist in both; the automatic recognition and the on-device pipeline are new here.</li>
     <li>My clothes photos and the closet index are not in the repository.</li>
   </ul>
 </section>
