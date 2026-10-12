@@ -1,0 +1,29 @@
+[
+ {
+  "model": "fp32",
+  "n": 103,
+  "part_acc": 0.816,
+  "slot_acc": 0.971,
+  "classify_ms_median": 17.1,
+  "errors": {
+   "top->outer": 13,
+   "outer->top": 3,
+   "bottom->outer": 2,
+   "bottom->top": 1
+  }
+ },
+ {
+  "model": "int8",
+  "n": 103,
+  "part_acc": 0.796,
+  "slot_acc": 0.942,
+  "classify_ms_median": 12.0,
+  "errors": {
+   "top->outer": 11,
+   "bottom->outer": 4,
+   "outer->top": 4,
+   "bottom->top": 1,
+   "bag->outer": 1
+  }
+ }
+]

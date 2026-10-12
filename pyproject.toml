@@ -1,0 +1,16 @@
+[project]
+name = "closet-door"
+version = "0.1.0"
+description = "On-device closet camera prototype"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.143.0",
+    "huggingface-hub>=2.2.0",
+    "numpy>=2.5.2",
+    "onnxruntime>=1.31.0",
+    "pillow>=12.3.0",
+    "python-multipart>=0.0.32",
+    "tokenizers>=0.23.3",
+    "uvicorn>=0.54.0",
+]
+

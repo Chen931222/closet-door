@@ -1,0 +1,70 @@
+{
+ "cpu": "Intel64 Family 6 Model 198 Stepping 2, GenuineIntel",
+ "python": "3.12.10",
+ "runs": [
+  {
+   "clip": "fp32",
+   "threads": 1,
+   "n": 30,
+   "median_ms": {
+    "cutout": 341.1,
+    "classify": 82.1,
+    "color": 22.6
+   },
+   "p90_ms": {
+    "cutout": 341.8,
+    "classify": 82.8,
+    "color": 24.7
+   },
+   "median_total_ms": 445.8
+  },
+  {
+   "clip": "fp32",
+   "threads": 4,
+   "n": 30,
+   "median_ms": {
+    "cutout": 111.1,
+    "classify": 35.4,
+    "color": 24.0
+   },
+   "p90_ms": {
+    "cutout": 113.1,
+    "classify": 36.2,
+    "color": 26.2
+   },
+   "median_total_ms": 170.5
+  },
+  {
+   "clip": "int8",
+   "threads": 1,
+   "n": 30,
+   "median_ms": {
+    "cutout": 346.9,
+    "classify": 36.5,
+    "color": 22.4
+   },
+   "p90_ms": {
+    "cutout": 348.3,
+    "classify": 37.4,
+    "color": 24.3
+   },
+   "median_total_ms": 405.8
+  },
+  {
+   "clip": "int8",
+   "threads": 4,
+   "n": 30,
+   "median_ms": {
+    "cutout": 111.7,
+    "classify": 23.8,
+    "color": 23.3
+   },
+   "p90_ms": {
+    "cutout": 114.0,
+    "classify": 24.7,
+    "color": 25.2
+   },
+   "median_total_ms": 158.8
+  }
+ ]
+}
