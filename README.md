@@ -30,8 +30,8 @@ Labels are my own, from an earlier personal tool. Images are already cut out, so
 
 | CLIP | 5-way part | 4-way slot (upper / bottom / shoes / bag) |
 |---|---|---|
-| fp32 | 81.6% | 97.1% |
-| int8 | 79.6% | 94.2% |
+| fp32 | 78.6% | 97.1% |
+| int8 | 77.7% | 95.1% |
 
 Most 5-way errors are hoodies and sweatshirts that I labelled "top" and the model calls "outer". For building an outfit the slot is what matters. `results/eval_parts.json`
 
@@ -51,6 +51,7 @@ Cutout is 85% of single-thread time. That is the first thing to move onto the Ha
 - Hanging shorts were called "long-sleeve shirt" in 2 of the first 8 raw door photos I checked by eye.
 - Colour under warm light is wrong for light colours: light-blue jeans came out "olive", light-gray shorts on a beige bed came out "beige". The fix planned for Stage II is a printed white reference card on the door, read on every frame.
 - The cutout keeps the door handle and hanger.
+- Some closet images came from an earlier tool that left a dark box around the item; U2Net-p keeps it, so a few closet items (mostly shoes) read as "black".
 - Outfit rules are mine and untested on anyone else.
 
 ## Stage II plan (UGen300, Hailo-10H)

@@ -115,7 +115,7 @@
   <table>
     <tr><th>Stage</th><th>Model / method</th><th class="r">Size</th><th>Licence</th></tr>
     <tr><td>Cutout</td><td>U2Net-p, 320×320 salient-object mask</td><td class="r mono">4.6 MB</td><td>Apache-2.0</td></tr>
-    <tr><td>Type</td><td>CLIP ViT-B/32 image encoder, int8, zero-shot over 20 prompts</td><td class="r mono">87 MB</td><td>MIT</td></tr>
+    <tr><td>Type</td><td>CLIP ViT-B/32 image encoder, int8, zero-shot over 20 prompts ("a photo of a …", shoes "a pair of …")</td><td class="r mono">87 MB</td><td>MIT</td></tr>
     <tr><td>Colour</td><td>k-means (k=3) on masked pixels → nearest of 19 named colours</td><td class="r mono">—</td><td>own code</td></tr>
     <tr><td>Already own it</td><td>Cosine similarity of CLIP embeddings, same slot</td><td class="r mono">—</td><td>own code</td></tr>
     <tr><td>Outfits</td><td>Rules: warmth vs temperature, ≤1 accent colour, light/dark contrast</td><td class="r mono">—</td><td>own code</td></tr>
@@ -126,17 +126,17 @@
 <!-- 6 -->
 <section class="s">
   <div class="k"><span>05 · Measured · accuracy</span><span>Garment type vs my own labels</span></div>
-  <h2>94% of my 103 items land in the right slot after int8 quantization.</h2>
+  <h2>95% of my 103 items land in the right slot after int8 quantization.</h2>
   <div class="cols" style="grid-template-columns:1.2fr .8fr">
     <table>
       <tr><th>CLIP</th><th class="r">5-way part</th><th class="r">4-way slot</th><th class="r">ms / item</th></tr>
-      <tr><td>fp32</td><td class="r">81.6%</td><td class="r">97.1%</td><td class="r mono">17</td></tr>
-      <tr class="hl"><td>int8</td><td class="r">79.6%</td><td class="r">94.2%</td><td class="r mono">12</td></tr>
+      <tr><td>fp32</td><td class="r">78.6%</td><td class="r">97.1%</td><td class="r mono">17</td></tr>
+      <tr class="hl"><td>int8</td><td class="r">77.7%</td><td class="r">95.1%</td><td class="r mono">12</td></tr>
     </table>
     <div style="font-size:19px">
       <p><b>Slot</b> (upper / bottom / shoes / bag) is what an outfit needs.</p>
       <p class="mute">Most 5-way misses are hoodies and sweatshirts I called "top" and the model calls "outer" — a labelling boundary more than an error.</p>
-      <p class="mute">Labels are my own, from an earlier personal tool; images already cut out, so this tests the type stage alone. int8 costs ~3 points; the Hailo port must report the same number.</p>
+      <p class="mute">Labels are my own, from an earlier personal tool; images already cut out, so this tests the type stage alone. int8 costs ~2 points; the Hailo port must report the same number.</p>
     </div>
   </div>
   <p class="foot mono">eval_parts.py → results/eval_parts.json</p>
@@ -175,7 +175,7 @@
   <ol>
     <li><b>Hanging shorts read as shirts</b> <span class="mute">in 2 of the first 8 raw door photos I checked by eye.</span></li>
     <li><b>Light colours under warm light are wrong:</b> <span class="mute">light-blue jeans → "olive"; light-gray shorts on a beige bed → "beige".</span></li>
-    <li><b>The cutout keeps the door handle and hanger.</b> <span class="mute">Harmless for type, adds a little gray to colour.</span></li>
+    <li><b>The cutout keeps the door handle and hanger</b> <span class="mute">— and a dark box some older closet images carry, so a few closet shoes read "black".</span></li>
     <li><b>The outfit rules are mine</b> <span class="mute">and have not been tested on anyone else.</span></li>
     <li><b>Nothing has run on Hailo yet.</b> <span class="mute">Whether both graphs compile unchanged is unknown until Stage II.</span></li>
   </ol>
@@ -188,7 +188,7 @@
   <table>
     <tr><th>Step</th><th>Work</th><th>Reported as</th></tr>
     <tr><td>1</td><td>Compile U2Net-p and the CLIP image encoder to HEF; run the same 30 photos. Fallback for cutout: a YOLO-seg model from the Hailo Model Zoo.</td><td>ms per stage vs the CPU table</td></tr>
-    <tr><td>2</td><td>Re-run the 103-item check on Hailo int8 output.</td><td>slot accuracy vs 94.2%</td></tr>
+    <tr><td>2</td><td>Re-run the 103-item check on Hailo int8 output.</td><td>slot accuracy vs 95.1%</td></tr>
     <tr><td>3</td><td>White reference card on the door; correct each frame before naming colour.</td><td>colour-name agreement before / after, on a hand-labelled set</td></tr>
     <tr><td>4</td><td>Camera trigger: new object hanging → one capture, no button.</td><td>missed / false triggers over a week of my own use</td></tr>
   </table>

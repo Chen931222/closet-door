@@ -88,6 +88,8 @@ class Closet:
             score += min(contrast, 0.5)  # some contrast reads better than tone-on-tone
             if contrast > 0.25:
                 reasons.append("light/dark contrast between top and bottom")
+            if s is not None and s.garment == "sandals" and temp_c < 18:
+                score -= 1.5  # open shoes below 18°C
             reasons.append(f"warmth {warmth:g} for {temp_c:g}°C (target {target:.1f})")
             scored.append((score, [x.id for x in parts], reasons))
         scored.sort(key=lambda t: -t[0])

@@ -2,11 +2,11 @@
  {
   "model": "fp32",
   "n": 103,
-  "part_acc": 0.816,
+  "part_acc": 0.786,
   "slot_acc": 0.971,
-  "classify_ms_median": 17.1,
+  "classify_ms_median": 17.6,
   "errors": {
-   "top->outer": 13,
+   "top->outer": 16,
    "outer->top": 3,
    "bottom->outer": 2,
    "bottom->top": 1
@@ -15,15 +15,14 @@
  {
   "model": "int8",
   "n": 103,
-  "part_acc": 0.796,
-  "slot_acc": 0.942,
-  "classify_ms_median": 12.0,
+  "part_acc": 0.777,
+  "slot_acc": 0.951,
+  "classify_ms_median": 11.9,
   "errors": {
-   "top->outer": 11,
+   "top->outer": 15,
    "bottom->outer": 4,
-   "outer->top": 4,
-   "bottom->top": 1,
-   "bag->outer": 1
+   "outer->top": 3,
+   "bottom->top": 1
   }
  }
 ]

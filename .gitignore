@@ -6,3 +6,7 @@ closet/
 deck/*.jpg
 deck/*.png
 deck/*.pdf
+video/raw/
+video/cards/
+video/chk/
+video/*.mp4

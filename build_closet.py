@@ -19,10 +19,13 @@ def main(src: Path, out: Path) -> None:
     items, embs = [], []
     for p in files:
         img = load_image(p, 800)
-        if img.mode == "RGBA":  # already cut out
-            cut, mask = img, np.asarray(img.split()[-1]) > 127
-        else:
-            cut, mask = v.cutout(img)
+        if img.mode == "RGBA":
+            # Cutouts from other tools sometimes keep a dark box around the item;
+            # flatten onto white and run our own cutout so every item takes the same path.
+            flat = Image.new("RGB", img.size, (255, 255, 255))
+            flat.paste(img, mask=img.split()[-1])
+            img = flat
+        cut, mask = v.cutout(img)
         emb = v.embed(cut)
         part, garment, _ = v.classify(emb)
         cname, chex = v.dominant_color(cut, mask)

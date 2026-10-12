@@ -67,14 +67,14 @@ class Vision:
 
     # ---------- text side: computed once, cached ----------
     def _label_embeddings(self) -> np.ndarray:
-        cache = MODELS / "garment_labels.npy"
+        cache = MODELS / "garment_labels_v2.npy"
         if cache.exists():
             emb = np.load(cache)
             if emb.shape[0] == len(GARMENTS):
                 return emb
         tok = Tokenizer.from_file(str(MODELS / "clip_tokenizer.json"))
         text = _session("clip_text_model.onnx")
-        prompts = [f"a photo of a {g} hanging on a door" for g, _ in GARMENTS]
+        prompts = [f"a photo of a pair of {g}" if part == "shoes" else f"a photo of a {g}" for g, part in GARMENTS]
         enc = tok.encode_batch(prompts)
         n = max(len(e.ids) for e in enc)
         ids = np.array([e.ids + [49407] * (n - len(e.ids)) for e in enc], dtype=np.int64)
