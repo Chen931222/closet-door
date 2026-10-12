@@ -3,3 +3,6 @@ __pycache__/
 models/
 closet/
 *.onnx
+deck/*.jpg
+deck/*.png
+deck/*.pdf

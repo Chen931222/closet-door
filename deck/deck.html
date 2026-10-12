@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Closet Door — Stage I proposal</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  :root { --paper:#f4f1ea; --ink:#1d1b18; --mute:#6f6a60; --rule:#cfc8ba; --mark:#9a3b2b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #888; }
+  body { font: 22px/1.45 Georgia, "Times New Roman", serif; color: var(--ink); }
+  .s { width: 1280px; height: 720px; background: var(--paper); padding: 64px 80px 56px; position: relative; overflow: hidden; page-break-after: always; margin: 0 auto 12px; }
+  @media print { html, body { background: var(--paper); } .s { margin: 0; } }
+  .k { position: absolute; top: 28px; left: 80px; right: 80px; display: flex; justify-content: space-between; font: 13px/1 ui-monospace, Consolas, monospace; color: var(--mute); letter-spacing: .06em; text-transform: uppercase; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+  h1 { font-size: 64px; line-height: 1.05; margin: 0 0 18px; font-weight: normal; letter-spacing: -.01em; }
+  h2 { font-size: 40px; line-height: 1.15; margin: 18px 0 26px; font-weight: normal; }
+  p { margin: 0 0 14px; }
+  .mute { color: var(--mute); }
+  .mono { font-family: ui-monospace, Consolas, monospace; font-size: .8em; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .c3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+  .n { font: 54px/1 Georgia, serif; color: var(--mark); display: block; margin-bottom: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: 20px; }
+  th { text-align: left; font-weight: normal; color: var(--mute); font-size: 15px; text-transform: uppercase; letter-spacing: .08em; border-bottom: 1px solid var(--ink); padding: 6px 10px 6px 0; }
+  td { border-bottom: 1px dotted var(--rule); padding: 8px 10px 8px 0; vertical-align: top; }
+  td.r, th.r { text-align: right; }
+  .hl td { background: #e9e3d6; }
+  ol, ul { margin: 0; padding-left: 1.1em; }
+  li { margin-bottom: 10px; }
+  .flow { display: flex; align-items: stretch; gap: 0; margin-top: 30px; }
+  .flow div { flex: 1; border: 1px solid var(--ink); padding: 14px 16px; font-size: 19px; background: #fbf9f4; }
+  .flow div + div { border-left: none; }
+  .flow b { display: block; font-weight: normal; font-size: 13px; color: var(--mute); font-family: ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+  .box { border: 1px solid var(--ink); padding: 18px 20px; background: #fbf9f4; }
+  .tag { display: inline-block; border: 1px solid var(--ink); padding: 2px 10px; font: 14px ui-monospace, Consolas, monospace; margin-right: 8px; }
+  img.shot { width: 100%; border: 1px solid var(--rule); display: block; }
+  .foot { position: absolute; bottom: 24px; left: 80px; right: 80px; font-size: 14px; color: var(--mute); }
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="s">
+  <div class="k"><span>ASUS UGen AI League · Stage I</span><span>Everyday AI · Battlefield Lightning (UGen300) · Global Online Track</span></div>
+  <div class="cols" style="grid-template-columns:1.25fr .75fr; margin-top:70px;">
+    <div>
+      <h1>Closet Door</h1>
+      <p style="font-size:30px; line-height:1.3">A camera on the closet door that reads each garment you hang on it — cutout, type, colour — and suggests what to wear today. On the device. Photos never leave home.</p>
+      <p class="mute" style="margin-top:60px">Ya-Cheng Chu · National Chung Hsing University, Department of Information Management</p>
+      <p class="mono mute">github.com/Chen931222/closet-door</p>
+    </div>
+    <div><img src="door.jpg" style="width:100%; height:520px; object-fit:cover; border:1px solid var(--ink)" alt=""></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="s">
+  <div class="k"><span>01 · Problem</span><span>Where this comes from</span></div>
+  <h2>I photographed all 104 of my clothes on one door handle.<br>Doing it with a phone went wrong three ways.</h2>
+  <div class="c3">
+    <div><span class="n">1</span><b>It is private.</b><p class="mute">A wardrobe is a picture of your body, your home and what you spend. Cloud vision APIs see all of it.</p></div>
+    <div><span class="n">2</span><b>Colour moves.</b><p class="mute">Under warm room light, light-blue jeans came out <i>olive</i> in this prototype. Every phone shot has different light.</p></div>
+    <div><span class="n">3</span><b>Nobody keeps it up.</b><p class="mute">One photo per item, upload, tag. The list is out of date the week after you buy something.</p></div>
+  </div>
+  <p class="foot">The door is already where clothes hang. If the camera is there too, adding an item is just hanging it up.</p>
+</section>
+
+<!-- 3 -->
+<section class="s">
+  <div class="k"><span>02 · Solution</span><span>What the device does</span></div>
+  <h2>Hang it on the door. The closet updates itself.</h2>
+  <div class="flow">
+    <div><b>Trigger · Stage II</b>A new object is hanging (frame difference); today: pick a photo</div>
+    <div><b>Cutout</b>Garment mask, background removed</div>
+    <div><b>Type</b>20 garment types → top / outer / bottom / shoes / bag</div>
+    <div><b>Colour</b>Main colour, named; white-card calibration in Stage II</div>
+    <div><b>Index</b>Stored on the device with its embedding</div>
+  </div>
+  <div class="cols" style="margin-top:40px">
+    <div class="box"><b>"You already own this."</b><p class="mute" style="margin-top:8px">Before the tag comes off: the closest items you have in the same slot, by image similarity. The demo shirt matches itself at 0.93.</p></div>
+    <div class="box"><b>"Wear this today."</b><p class="mute" style="margin-top:8px">Outfits that include the new item, ranked by warmth for today's temperature and two colour rules. Each suggestion prints its reasons.</p></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="s">
+  <div class="k"><span>03 · Architecture</span><span>Hardware and data flow</span></div>
+  <h2>Everything that sees an image runs on the Hailo-10H.</h2>
+  <div class="cols" style="grid-template-columns:1.1fr .9fr">
+    <div>
+      <table>
+        <tr><th>Part</th><th>Role</th></tr>
+        <tr><td>USB camera, top of the door frame</td><td>Fixed view, fixed light</td></tr>
+        <tr><td>ASUS UGen300 (Hailo-10H, 40 TOPS INT4, 8 GB)</td><td>Cutout + image encoder</td></tr>
+        <tr><td>Small host PC / SBC</td><td>Trigger, colour, index, rules, local web page</td></tr>
+        <tr><td>Phone on home Wi-Fi</td><td>Reads the page; nothing is uploaded</td></tr>
+        <tr><td>Printed white card on the door</td><td>Colour reference in every frame</td></tr>
+      </table>
+    </div>
+    <div class="box" style="font-size:19px">
+      <b>What is not on the device</b>
+      <ul style="margin-top:10px">
+        <li>No cloud vision API.</li>
+        <li>No text encoder: the 20 garment prompts are embedded once at build time and shipped as a 20×512 table.</li>
+        <li>No account. The closet index is two local files.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="s">
+  <div class="k"><span>04 · Methods</span><span>Models and tools in the Stage I prototype</span></div>
+  <h2>Small, public models, all in ONNX — ready for the Hailo Dataflow Compiler.</h2>
+  <table>
+    <tr><th>Stage</th><th>Model / method</th><th class="r">Size</th><th>Licence</th></tr>
+    <tr><td>Cutout</td><td>U2Net-p, 320×320 salient-object mask</td><td class="r mono">4.6 MB</td><td>Apache-2.0</td></tr>
+    <tr><td>Type</td><td>CLIP ViT-B/32 image encoder, int8, zero-shot over 20 prompts</td><td class="r mono">87 MB</td><td>MIT</td></tr>
+    <tr><td>Colour</td><td>k-means (k=3) on masked pixels → nearest of 19 named colours</td><td class="r mono">—</td><td>own code</td></tr>
+    <tr><td>Already own it</td><td>Cosine similarity of CLIP embeddings, same slot</td><td class="r mono">—</td><td>own code</td></tr>
+    <tr><td>Outfits</td><td>Rules: warmth vs temperature, ≤1 accent colour, light/dark contrast</td><td class="r mono">—</td><td>own code</td></tr>
+  </table>
+  <p class="mute" style="margin-top:22px; font-size:19px">Runtime today: ONNX Runtime on a laptop CPU, as a stand-in for the Hailo-10H. Python, FastAPI, numpy. Written with Claude Code as a coding assistant.</p>
+</section>
+
+<!-- 6 -->
+<section class="s">
+  <div class="k"><span>05 · Measured · accuracy</span><span>Garment type vs my own labels</span></div>
+  <h2>94% of my 103 items land in the right slot after int8 quantization.</h2>
+  <div class="cols" style="grid-template-columns:1.2fr .8fr">
+    <table>
+      <tr><th>CLIP</th><th class="r">5-way part</th><th class="r">4-way slot</th><th class="r">ms / item</th></tr>
+      <tr><td>fp32</td><td class="r">81.6%</td><td class="r">97.1%</td><td class="r mono">17</td></tr>
+      <tr class="hl"><td>int8</td><td class="r">79.6%</td><td class="r">94.2%</td><td class="r mono">12</td></tr>
+    </table>
+    <div style="font-size:19px">
+      <p><b>Slot</b> (upper / bottom / shoes / bag) is what an outfit needs.</p>
+      <p class="mute">Most 5-way misses are hoodies and sweatshirts I called "top" and the model calls "outer" — a labelling boundary more than an error.</p>
+      <p class="mute">Labels are my own, from an earlier personal tool; images already cut out, so this tests the type stage alone. int8 costs ~3 points; the Hailo port must report the same number.</p>
+    </div>
+  </div>
+  <p class="foot mono">eval_parts.py → results/eval_parts.json</p>
+</section>
+
+<!-- 7 -->
+<section class="s">
+  <div class="k"><span>06 · Measured · latency</span><span>30 door photos, median, Intel Core Ultra 7 270K Plus, CPU only</span></div>
+  <h2>159 ms per garment on 4 CPU threads. The cutout is the bottleneck.</h2>
+  <div class="cols" style="grid-template-columns:1.25fr .75fr">
+    <table>
+      <tr><th>CLIP</th><th class="r">threads</th><th class="r">cutout</th><th class="r">type</th><th class="r">colour</th><th class="r">total</th></tr>
+      <tr><td>fp32</td><td class="r">1</td><td class="r">341</td><td class="r">82</td><td class="r">23</td><td class="r">446</td></tr>
+      <tr><td>fp32</td><td class="r">4</td><td class="r">111</td><td class="r">35</td><td class="r">24</td><td class="r">171</td></tr>
+      <tr><td>int8</td><td class="r">1</td><td class="r">347</td><td class="r">37</td><td class="r">22</td><td class="r">406</td></tr>
+      <tr class="hl"><td>int8</td><td class="r">4</td><td class="r">112</td><td class="r">24</td><td class="r">23</td><td class="r">159</td></tr>
+    </table>
+    <div style="font-size:19px">
+      <p>On one thread the cutout is <b>85%</b> of the time.</p>
+      <p class="mute">A small host CPU will look more like the 1-thread rows. That is why the cutout and the image encoder go to the Hailo-10H first, and colour and rules stay on the host.</p>
+    </div>
+  </div>
+  <p class="foot mono">bench.py → results/bench.json</p>
+</section>
+
+<!-- 8 -->
+<section class="s" style="padding-top:56px">
+  <div class="k"><span>07 · Prototype</span><span>Local demo UI, served from 127.0.0.1</span></div>
+  <img class="shot" src="ui.png" style="margin-top:6px; height:600px; object-fit:cover; object-position:top" alt="">
+</section>
+
+<!-- 9 -->
+<section class="s">
+  <div class="k"><span>08 · Limits</span><span>Found while building Stage I</span></div>
+  <h2>What does not work yet.</h2>
+  <ol>
+    <li><b>Hanging shorts read as shirts</b> <span class="mute">in 2 of the first 8 raw door photos I checked by eye.</span></li>
+    <li><b>Light colours under warm light are wrong:</b> <span class="mute">light-blue jeans → "olive"; light-gray shorts on a beige bed → "beige".</span></li>
+    <li><b>The cutout keeps the door handle and hanger.</b> <span class="mute">Harmless for type, adds a little gray to colour.</span></li>
+    <li><b>The outfit rules are mine</b> <span class="mute">and have not been tested on anyone else.</span></li>
+    <li><b>Nothing has run on Hailo yet.</b> <span class="mute">Whether both graphs compile unchanged is unknown until Stage II.</span></li>
+  </ol>
+</section>
+
+<!-- 10 -->
+<section class="s">
+  <div class="k"><span>09 · Stage II plan</span><span>Nov 6 – Dec 4 on the UGen300</span></div>
+  <h2>Four steps, each with a number to report.</h2>
+  <table>
+    <tr><th>Step</th><th>Work</th><th>Reported as</th></tr>
+    <tr><td>1</td><td>Compile U2Net-p and the CLIP image encoder to HEF; run the same 30 photos. Fallback for cutout: a YOLO-seg model from the Hailo Model Zoo.</td><td>ms per stage vs the CPU table</td></tr>
+    <tr><td>2</td><td>Re-run the 103-item check on Hailo int8 output.</td><td>slot accuracy vs 94.2%</td></tr>
+    <tr><td>3</td><td>White reference card on the door; correct each frame before naming colour.</td><td>colour-name agreement before / after, on a hand-labelled set</td></tr>
+    <tr><td>4</td><td>Camera trigger: new object hanging → one capture, no button.</td><td>missed / false triggers over a week of my own use</td></tr>
+  </table>
+</section>
+
+<!-- 11 -->
+<section class="s">
+  <div class="k"><span>10 · Value</span><span>Who would use it, and why on the edge</span></div>
+  <h2>A closet that keeps itself up to date, without a cloud.</h2>
+  <div class="c3" style="font-size:20px">
+    <div><b>For people</b><p class="mute">Know what you own before you buy a near-duplicate; get an outfit for today's weather from clothes you actually have.</p></div>
+    <div><b>Why edge AI</b><p class="mute">Images of a bedroom and a body stay home. A fixed camera with fixed light gives colour a phone can't. No per-photo API cost.</p></div>
+    <div><b>Where it goes next</b><p class="mute">The same door camera fits shop fitting rooms and second-hand sellers listing many items — to be tested, not claimed.</p></div>
+  </div>
+  <p class="foot">Evidence so far is one closet — mine. Stage II adds a week of daily use; anything beyond that is a hypothesis.</p>
+</section>
+
+<!-- 12 -->
+<section class="s">
+  <div class="k"><span>11 · Outputs</span><span>What exists today and what Stage II delivers</span></div>
+  <div class="cols">
+    <div>
+      <h2 style="font-size:32px">Today</h2>
+      <ul style="font-size:20px">
+        <li>Working pipeline: cutout → type → colour → closet match → outfits</li>
+        <li>Local web demo, 104-item closet indexed on the machine</li>
+        <li>Reproducible accuracy and latency scripts with saved results</li>
+      </ul>
+    </div>
+    <div>
+      <h2 style="font-size:32px">Stage II</h2>
+      <ul style="font-size:20px">
+        <li>Pipeline running on UGen300, measured against these tables</li>
+        <li>Door-mounted camera with automatic trigger</li>
+        <li>Colour calibration with a reference card, measured</li>
+        <li>GitHub with architecture diagram, model info and benchmarks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="s">
+  <div class="k"><span>12 · References</span><span>Source and disclosure</span></div>
+  <h2>References</h2>
+  <ul style="font-size:18px">
+    <li>Source code: <span class="mono">github.com/Chen931222/closet-door</span></li>
+    <li>Qin et al., <i>U²-Net: Going Deeper with Nested U-Structure for Salient Object Detection</i>, Pattern Recognition 2020. U2Net-p ONNX from the rembg project.</li>
+    <li>Radford et al., <i>Learning Transferable Visual Models From Natural Language Supervision</i> (CLIP), ICML 2021. ONNX export: Xenova/clip-vit-base-patch32.</li>
+    <li>ONNX Runtime; Hailo Dataflow Compiler and Hailo Model Zoo (Stage II).</li>
+  </ul>
+  <h2 style="font-size:28px; margin-top:30px">Disclosure</h2>
+  <ul style="font-size:18px" class="mute">
+    <li>Code written with Claude Code (Anthropic) as an assistant. Data, measurements and decisions are mine and reproducible from the repository.</li>
+    <li>I earlier built a personal web closet for my own items. This entry is new code with a different job — a door camera — and uses that tool's labels only as ground truth.</li>
+    <li>My clothes photos and the closet index are not in the repository.</li>
+  </ul>
+</section>
+
+</body>
+</html>
